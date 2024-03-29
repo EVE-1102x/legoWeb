@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'AdminCategory')
+@section('title', 'AdminShape')
 @section('content')
 <div class="container-fluid mt-3">
     <div class="card bg-dark mt-4">

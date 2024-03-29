@@ -7,20 +7,17 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'LegoWeb') }}</title>
+    <title>@yield('title')</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <!-- Scripts -->
+    <!-- font awesome CDN -->
+    <link rel="stylesheet" href="{{ asset('fontawesome-free-6.5.1-web/css/all.min.css') }}">
+    <!--Styles-->
+    <link rel="stylesheet" href="{{ asset('assets/css/adminStyles.css')  }}">
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-    <style>
-        /* Custom CSS to make offcanvas smaller */
-        .offcanvas {
-            width: 250px !important;
-        }
-    </style>
 </head>
 
 <body>
@@ -56,10 +53,17 @@
                         <i class="bi bi-person-circle" style="font-size: 2rem; color: cornflowerblue;"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        <li>
+                            <a class="dropdown-item" href="{{ route('logout') }}"
+                               onclick="event.preventDefault();
+                                                 document.getElementById('logout-form').submit();">
+                                {{ __('Logout') }}
+                            </a>
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </li>
                     </ul>
                 </li>
             </ul>
@@ -74,7 +78,7 @@
             <ul class="navbar-nav" style="font-size: 1.3rem;">
                 <!--Dashboard-->
                 <li>
-                    <a href="/admin" class="nav-link px-3 active">
+                    <a href="/admin/dashboard" class="nav-link px-3 active">
                         <span class="me-2">
                             <i class="bi bi-speedometer2"></i>
                         </span>
@@ -84,7 +88,7 @@
 
                 <!--Category-->
                 <li>
-                    <a href="admin/category" class="nav-link px-3 active">
+                    <a href="/admin/category" class="nav-link px-3 active">
                         <span class="me-2">
                             <i class="bi bi-folder-fill"></i>
                         </span>
@@ -94,7 +98,7 @@
 
                 <!--Product-->
                 <li>
-                    <a href="admin/product" class="nav-link px-3 active">
+                    <a href="/admin/product" class="nav-link px-3 active">
                         <span class="me-2">
                             <i class="bi bi-box-seam-fill"></i>
                         </span>
@@ -102,9 +106,29 @@
                     </a>
                 </li>
 
+                <!--LegoPiece-->
+                <li>
+                    <a href="/admin/lego_piece" class="nav-link px-3 active">
+                        <span class="me-2">
+                            <i class="bi bi-puzzle-fill"></i>
+                        </span>
+                        <span>Lego Piece</span>
+                    </a>
+                </li>
+
+                <!--Employee-->
+                <li>
+                    <a href="/admin/employee" class="nav-link px-3 active">
+                        <span class="me-2">
+                             <i class="bi bi-person-vcard-fill"></i>
+                        </span>
+                        <span>Employee</span>
+                    </a>
+                </li>
+
                 <!--Customer-->
                 <li>
-                    <a href="admin/customer" class="nav-link px-3 active">
+                    <a href="/admin/customer" class="nav-link px-3 active">
                         <span class="me-2">
                             <i class="bi bi-people-fill"></i>
                         </span>
@@ -114,7 +138,7 @@
 
                 <!--Order-->
                 <li>
-                    <a href="admin/order" class="nav-link px-3 active">
+                    <a href="/admin/order" class="nav-link px-3 active">
                         <span class="me-2">
                             <i class="bi bi-receipt"></i>
                         </span>
@@ -124,7 +148,7 @@
 
                 <!--Charts-->
                 <li>
-                    <a href="admin/chart" class="nav-link px-3 active">
+                    <a href="/admin/chart" class="nav-link px-3 active">
                         <span class="me-2">
                             <i class="bi bi-bar-chart-fill"></i>
                         </span>
@@ -151,10 +175,17 @@
 </div>
 
 <!--Main-->
-<main class="mt-5 pt-3 main">
+<main class="mt-5 pt-3 bg-dark main">
     @yield('content')
 </main>
+
+@include('layouts.admin-footer')
+
+<!-- Script -->
 </body>
+</html>
+
+
 
 
 
